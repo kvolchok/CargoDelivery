@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using Obi;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BoxController : MonoBehaviour
 {
+    public UnityEvent OnStageFailed;
+    
     [SerializeField]
     private GameObject _rope;
     [SerializeField] 
@@ -29,6 +32,8 @@ public class BoxController : MonoBehaviour
     {
         // Отцепляем ящик от веревки
         _ropeAttachment.enabled = false;
+        
+        OnStageFailed.Invoke();
     }
 
     // TODO: Вызовите данный метод, когда ящик на веревке окажется над финишной точкой 
