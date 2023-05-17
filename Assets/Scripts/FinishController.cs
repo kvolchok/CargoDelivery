@@ -9,7 +9,10 @@ public class FinishController : MonoBehaviour
     {
         var ray = new Ray(transform.position, transform.up);
 
-        if (!Physics.Raycast(ray, out var hitInfo)) return;
+        if (!Physics.Raycast(ray, out var hitInfo))
+        {
+            return;
+        }
 
         if (hitInfo.collider.gameObject == _box.gameObject)
         {
