@@ -16,6 +16,7 @@ public class FinishController : MonoBehaviour
 
         if (hitInfo.collider.gameObject == _box.gameObject)
         {
+            StopAllCoroutines();
             _box.DropDown(transform.position);
         }
     }
