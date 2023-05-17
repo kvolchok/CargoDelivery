@@ -3,51 +3,75 @@ using UnityEngine;
 public class LineDrawer : MonoBehaviour
 {
     [SerializeField]
-    private float _deep = 12.87f;
+    private float _minDrawDistance = 0.5f;
+    [SerializeField]
+    private float _maxDrawDistance = 1f;
     
-    private LineRenderer _lineRenderer;
+    private LineRenderer _line;
     private Camera _camera;
 
     private bool _isLineDrawn;
+    private Vector3 _lastPoint;
 
     private void Awake()
     {
-        _lineRenderer = GetComponent<LineRenderer>();
+        _line = GetComponent<LineRenderer>();
         _camera = Camera.main;
+        SetLastDrawPoint();
     }
+    
+    public Vector3[] GetRoute()
+    {
+        var positions = new Vector3[_line.positionCount];
+        _line.GetPositions(positions);
 
+        return positions;
+    }
+    
     private void Update()
     {
         MoveMouseCursor();
     }
 
-    public Vector3[] GetRoute()
-    {
-        var positions = new Vector3[_lineRenderer.positionCount];
-        _lineRenderer.GetPositions(positions);
-
-        return positions;
-    }
-
     private void MoveMouseCursor()
     {
+        var mousePosition = Input.mousePosition;
+        var ray = _camera.ScreenPointToRay(mousePosition);
+
+        if (!Physics.Raycast(ray, out var hitInfo))
+        {
+            return;
+        }
+
+        var currentPoint = hitInfo.point;
+        var distance = Vector3.Distance(currentPoint, _lastPoint);
+        
+        if (distance < _minDrawDistance || distance > _maxDrawDistance)
+        {
+            return;
+        }
+        
         if (Input.GetMouseButtonUp(0))
         {
             _isLineDrawn = true;
         }
-        
-        var mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _deep);
-        var point = _camera.ScreenToWorldPoint(mousePosition);
 
         if (Input.GetMouseButton(0) && !_isLineDrawn)
         {
-            DrawRoute(point);
+            DrawRoute(currentPoint);
         }
     }
 
-    private void DrawRoute(Vector3 point)
+    private void DrawRoute(Vector3 currentPoint)
     {
-        var index = ++_lineRenderer.positionCount - 1;
-        _lineRenderer.SetPosition(index, point);
+        var index = ++_line.positionCount - 1;
+        _line.SetPosition(index, currentPoint);
+
+        SetLastDrawPoint();
+    }
+
+    private void SetLastDrawPoint()
+    {
+        _lastPoint = _line.GetPosition(_line.positionCount - 1);
     }
 }
