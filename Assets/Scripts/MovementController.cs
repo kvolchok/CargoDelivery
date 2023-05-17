@@ -4,16 +4,17 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     [SerializeField]
+    private CoroutineManager _coroutineManager;
+    [SerializeField]
     private LineDrawer _lineDrawer;
-
     [SerializeField]
     private float _speed = 1f;
-
+    
     private void Update()
     {
         if (Input.GetMouseButtonUp(0))
         {
-            StartCoroutine(MoveCargo());
+            _coroutineManager.StartCoroutine(MoveCargo());
         }
     }
 
