@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameController : MonoBehaviour
 {
     private const string GAME_SCENE = "game";
 
