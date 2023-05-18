@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LineDrawer : MonoBehaviour
 {
+    public UnityEvent OnCargoMove;
+    
     [SerializeField]
     private float _minDrawDistance = 0.5f;
     [SerializeField]
@@ -30,7 +33,10 @@ public class LineDrawer : MonoBehaviour
     
     private void Update()
     {
-        MoveMouseCursor();
+        if (!_hasLineDrawn)
+        {
+            MoveMouseCursor();
+        }
     }
 
     private void MoveMouseCursor()
@@ -54,6 +60,7 @@ public class LineDrawer : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             _hasLineDrawn = true;
+            OnCargoMove.Invoke();
         }
 
         if (distance < _minDrawDistance)

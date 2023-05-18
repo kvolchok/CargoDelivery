@@ -1,4 +1,5 @@
 using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
@@ -10,15 +11,13 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private float _speed = 1f;
     
-    private void Update()
+    [UsedImplicitly]
+    public void MoveCargo()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            _coroutineManager.StartCoroutine(MoveCargo());
-        }
+        _coroutineManager.StartCoroutine(MoveCargoCoroutine());
     }
 
-    private IEnumerator MoveCargo()
+    private IEnumerator MoveCargoCoroutine()
     {
         var route = _lineDrawer.GetRoute();
         
