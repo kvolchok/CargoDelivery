@@ -10,7 +10,7 @@ public class LineDrawer : MonoBehaviour
     private LineRenderer _line;
     private Camera _camera;
 
-    private bool _isLineDrawn;
+    private bool _hasLineDrawn;
     private Vector3 _lastPoint;
 
     private void Awake()
@@ -46,17 +46,22 @@ public class LineDrawer : MonoBehaviour
         var currentPoint = hitInfo.point;
         var distance = Vector3.Distance(currentPoint, _lastPoint);
         
-        if (distance < _minDrawDistance || distance > _maxDrawDistance)
+        if (distance > _maxDrawDistance)
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            _hasLineDrawn = true;
+        }
+
+        if (distance < _minDrawDistance)
         {
             return;
         }
         
-        if (Input.GetMouseButtonUp(0))
-        {
-            _isLineDrawn = true;
-        }
-
-        if (Input.GetMouseButton(0) && !_isLineDrawn)
+        if (!_hasLineDrawn && Input.GetMouseButton(0))
         {
             DrawRoute(currentPoint);
         }
