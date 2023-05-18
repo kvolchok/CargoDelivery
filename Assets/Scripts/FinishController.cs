@@ -1,10 +1,7 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class FinishController : MonoBehaviour
 {
-    public UnityEvent OnStageClear;
-    
     [SerializeField]
     private CoroutineManager _coroutineManager;
     [SerializeField]
@@ -23,7 +20,6 @@ public class FinishController : MonoBehaviour
         {
             _coroutineManager.StopAllCoroutines();
             _box.DropDown(transform.position);
-            OnStageClear.Invoke();
         }
     }
 }

@@ -20,12 +20,12 @@ public class GameController : MonoBehaviour
     public void ShowStageFailedScreen()
     {
         _coroutineManager.StopAllCoroutines();
-        _coroutineManager.StartCoroutine(ShowStageFailedScreenCoroutine());
+        StartCoroutine(ShowStageFailedScreenCoroutine());
     }
 
     public void ShowStageClearScreen()
     {
-        _coroutineManager.StartCoroutine(ShowStageClearScreenCoroutine());
+        StartCoroutine(ShowStageClearScreenCoroutine());
     }
 
     [UsedImplicitly]

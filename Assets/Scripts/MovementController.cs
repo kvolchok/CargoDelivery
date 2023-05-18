@@ -9,7 +9,7 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     private LineDrawer _lineDrawer;
     [SerializeField]
-    private float _speed = 1f;
+    private float _speed = 2f;
     
     [UsedImplicitly]
     public void MoveCargo()
