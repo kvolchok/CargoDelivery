@@ -8,18 +8,16 @@ public class GameController : MonoBehaviour
     private const string GAME_SCENE = "game";
 
     [SerializeField]
-    private CoroutineManager _coroutineManager;
-    [SerializeField]
     private GameObject _stageFailedScreen;
     [SerializeField]
-    private GameObject _stageClearScreen;
+    private GameObject _stagePassedScreen;
     
     [SerializeField]
     private float _changeScreenDelay = 1f;
 
     public void ShowStageFailedScreen()
     {
-        _coroutineManager.StopAllCoroutines();
+        StopAllCoroutines();
         StartCoroutine(ShowStageFailedScreenCoroutine());
     }
 
@@ -55,6 +53,6 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(_changeScreenDelay);
 
-        _stageClearScreen.SetActive(true);
+        _stagePassedScreen.SetActive(true);
     }
 }

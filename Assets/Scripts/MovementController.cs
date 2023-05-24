@@ -5,8 +5,6 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     [SerializeField]
-    private CoroutineManager _coroutineManager;
-    [SerializeField]
     private LineDrawer _lineDrawer;
     [SerializeField]
     private float _speed = 2f;
@@ -14,7 +12,13 @@ public class MovementController : MonoBehaviour
     [UsedImplicitly]
     public void MoveCargo()
     {
-        _coroutineManager.StartCoroutine(MoveCargoCoroutine());
+        StartCoroutine(MoveCargoCoroutine());
+    }
+
+    [UsedImplicitly]
+    public void Stop()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator MoveCargoCoroutine()

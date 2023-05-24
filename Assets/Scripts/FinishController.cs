@@ -3,7 +3,7 @@ using UnityEngine;
 public class FinishController : MonoBehaviour
 {
     [SerializeField]
-    private CoroutineManager _coroutineManager;
+    private MovementController _movementController;
     [SerializeField]
     private BoxController _box;
 
@@ -18,7 +18,7 @@ public class FinishController : MonoBehaviour
 
         if (hitInfo.collider.gameObject == _box.gameObject)
         {
-            _coroutineManager.StopAllCoroutines();
+            _movementController.Stop();
             _box.DropDown(transform.position);
         }
     }
