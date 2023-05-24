@@ -23,13 +23,13 @@ public class GameController : MonoBehaviour
         StartCoroutine(ShowStageFailedScreenCoroutine());
     }
 
-    public void ShowStageClearScreen()
+    public void ShowStagePassedScreen()
     {
-        StartCoroutine(ShowStageClearScreenCoroutine());
+        StartCoroutine(ShowStagePassedScreenCoroutine());
     }
 
     [UsedImplicitly]
-    public void ReStartStage()
+    public void RestartStage()
     {
         SceneManager.LoadScene(GAME_SCENE);
     }
@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
         _stageFailedScreen.SetActive(true);
     }
 
-    private IEnumerator ShowStageClearScreenCoroutine()
+    private IEnumerator ShowStagePassedScreenCoroutine()
     {
         yield return new WaitForSeconds(_changeScreenDelay);
 
