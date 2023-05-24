@@ -1,9 +1,13 @@
 using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MovementController : MonoBehaviour
 {
+    [SerializeField]
+    private UnityEvent _stageFailed;
+    
     [SerializeField]
     private LineDrawer _lineDrawer;
     [SerializeField]
@@ -46,5 +50,7 @@ public class MovementController : MonoBehaviour
             transform.position = endPosition;
             yield return null;
         }
+        
+        _stageFailed.Invoke();
     }
 }
