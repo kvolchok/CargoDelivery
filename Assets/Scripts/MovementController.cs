@@ -26,20 +26,21 @@ public class MovementController : MonoBehaviour
             var startPosition = route[i];
             var endPosition = route[i + 1];
             
-            var travelDistance = Vector3.Distance(startPosition, endPosition);
-            var travelTime = travelDistance / _speed;
-            
-            var currentTime = 0f;
+            var distanceToNextPoint = Vector3.Distance(startPosition, endPosition);
+            var travelDistance = 0f;
 
-            while (currentTime < travelTime)
+            while (distanceToNextPoint >= travelDistance)
             {
-                var progress = currentTime / travelTime;
-                var currentPosition = Vector3.Lerp(startPosition, endPosition, progress);
+                travelDistance = _speed * Time.deltaTime;
+                var currentPosition = Vector3.MoveTowards(transform.position, endPosition, travelDistance);
                 transform.position = currentPosition;
-                currentTime += Time.deltaTime;
+                distanceToNextPoint -= travelDistance;
 
                 yield return null;
             }
+
+            transform.position = endPosition;
+            yield return null;
         }
     }
 }
