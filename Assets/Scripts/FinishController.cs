@@ -2,21 +2,16 @@ using UnityEngine;
 
 public class FinishController : MonoBehaviour
 {
+    private const string ROPE_TAG = "Rope";
+    
     [SerializeField]
     private MovementController _movementController;
     [SerializeField]
     private BoxController _box;
 
-    private void Update()
+    private void OnTriggerEnter(Collider otherCollider)
     {
-        var ray = new Ray(transform.position, transform.up);
-
-        if (!Physics.Raycast(ray, out var hitInfo))
-        {
-            return;
-        }
-
-        if (hitInfo.collider.gameObject == _box.gameObject)
+        if (otherCollider.CompareTag(ROPE_TAG))
         {
             _movementController.Stop();
             _box.DropDown(transform.position);
